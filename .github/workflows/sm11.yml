@@ -1,6 +1,6 @@
 name: build
 
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -101,10 +101,10 @@ jobs:
       - name: Checking out own repository
         uses: actions/checkout@v2
         with:
-          path: sm-ripext
+          path: extension
 
       - name: Compiling sm-ripext files
-        working-directory: sm-ripext
+        working-directory: extension
         run: |
           mkdir build
           cd build
@@ -114,4 +114,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sm-ripext-sm${{ matrix.sm_version }}-${{ matrix.os_short }}-${{ env.GITHUB_SHA_SHORT }}
-          path: sm-ripext/build/package
+          path: extension/build/package
