@@ -64,14 +64,13 @@ jobs:
       - name: Checking out AMBuild
         uses: actions/checkout@v2
         with:
-          repository: Accelerator74/ambuild
+          repository: alliedmodders/ambuild
           path: ambuild
-          
-      - name: Install AMBuild
-        uses: BSFishy/pip-action@v1
-        with:
-          packages: ./ambuild
-          
+      
+      - name: Setting up ambuild
+        working-directory: ambuild
+        run: python setup.py install
+        
       - name: Setting up Python
         uses: actions/setup-python@v2
         with:
