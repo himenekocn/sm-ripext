@@ -9,22 +9,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
 
         sm_version:
           - "1.11"
 
+        mm_version:
+          - "1.12"
+
         include:
+          - mm_version: "1.12"
+            mm_branch: "master"
+
           - sm_version: "1.11"
             sm_branch: "master"
 
           - os: ubuntu-latest
+            os_short: linux
             target-archs: x86,x86_64
 
           - os: windows-latest
+            os_short: win
             target-archs: x86,x86_64
-
+            
           - os: macos-latest
+            os_short: macos
             target-archs: x86_64
 
     steps:
@@ -32,7 +44,6 @@ jobs:
         shell: bash
         run: |
           echo "GITHUB_SHA_SHORT=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          
       - name: Install (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -57,7 +68,6 @@ jobs:
           for /f "delims== tokens=1,2" %%a in ('set') do (
             echo>>"%GITHUB_ENV%" %%a=%%b
           )
-          
       - name: Checking out SourceMod
         uses: actions/checkout@v2
         with:
@@ -66,10 +76,17 @@ jobs:
           path: sourcemod-${{ matrix.sm_version }}
           submodules: recursive
 
+      - name: Checking out MM:Source
+        uses: actions/checkout@v2
+        with:
+          repository: alliedmodders/metamod-source
+          ref: ${{ matrix.mm_branch }}
+          path: metamod-${{ matrix.mm_version }}
+
       - name: Checking out AMBuild
         uses: actions/checkout@v2
         with:
-          repository: alliedmodders/ambuild
+          repository: Accelerator74/ambuild
           path: ambuild
 
       - name: Setting up Python
@@ -86,19 +103,13 @@ jobs:
         with:
           path: sm-ripext
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: extension
-
-      - name: Compiling Sm-ripext files
-        working-directory: extension
+      - name: Compiling sm-ripext files
+        working-directory: sm-ripext
         run: |
-          mkdir build && cd build
-          perl ../curl/lib/mk-ca-bundle.pl
-          python ../configure.py --enable-optimize --sm-path="${{ github.workspace }}/sourcemod-${{ matrix.sm_version }}" --targets=${{ matrix.target-archs }}"
+          mkdir build
+          cd build
+          python ../configure.py --enable-optimize --sm-path="${{ github.workspace }}/sourcemod-${{ matrix.sm_version }}" --mms-path="${{ github.workspace }}/metamod-${{ matrix.mm_version }} --targets=${{ matrix.target-archs }}"
           ambuild
-
       - name: Uploading package
         uses: actions/upload-artifact@v2
         with:
