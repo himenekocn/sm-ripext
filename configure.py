@@ -26,6 +26,4 @@ parser.options.add_argument('-s', '--sdks', default='all', dest='sdks',
                             'comma-delimited list of engine names')
 parser.options.add_argument('--targets', type=str, dest='targets', default=None,
                        help='Override the target architecture (use commas to separate multiple targets).')
-parser.options.add_argument('-D_GLIBCXX_USE_CXX11_ABI', action='store_const', const='0', dest='CXX11',
-                       help='D_GLIBCXX_USE_CXX11_ABI')
 parser.Configure()
