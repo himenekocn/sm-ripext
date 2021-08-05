@@ -73,7 +73,7 @@ jobs:
           path: extension/build/package
 
 
- release:
+  release:
     name: Release
     if: startsWith(github.ref, 'refs/tags/')
     needs: build
