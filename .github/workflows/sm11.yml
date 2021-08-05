@@ -108,6 +108,7 @@ jobs:
         run: |
           mkdir build
           cd build
+          perl ../curl/lib/mk-ca-bundle.pl
           python ../configure.py --enable-optimize --sm-path="${{ github.workspace }}/sourcemod-${{ matrix.sm_version }}" --mms-path="${{ github.workspace }}/metamod-${{ matrix.mm_version }} --targets=${{ matrix.target-archs }}"
           ambuild
       - name: Uploading package
