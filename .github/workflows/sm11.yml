@@ -29,7 +29,7 @@ jobs:
           - os: ubuntu-latest
             os_short: linux
             target-archs: x86,x86_64
-
+            
           - os: windows-latest
             os_short: win
             target-archs: x86,x86_64
@@ -48,6 +48,7 @@ jobs:
           sudo apt-get install -y clang g++-multilib
           echo "CC=clang" >> $GITHUB_ENV
           echo "CXX=clang++" >> $GITHUB_ENV
+          
       - name: Add msbuild to PATH (Windows)
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@v1.0.2
@@ -64,7 +65,7 @@ jobs:
           for /f "delims== tokens=1,2" %%a in ('set') do (
             echo>>"%GITHUB_ENV%" %%a=%%b
           )
-
+          
       - name: Checking out SourceMod
         uses: actions/checkout@v2
         with:
@@ -83,17 +84,17 @@ jobs:
       - name: Checking out AMBuild
         uses: actions/checkout@v2
         with:
-          repository: alliedmodders/ambuild
+          repository: Accelerator74/ambuild
           path: ambuild
-      
-      - name: Setting up ambuild
-        working-directory: ambuild
-        run: python setup.py install
-        
+
       - name: Setting up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
+      - name: Setting up ambuild
+        working-directory: ambuild
+        run: python setup.py install
 
       - name: Checking out own repository
         uses: actions/checkout@v2
@@ -102,13 +103,13 @@ jobs:
 
       - name: Compiling sm-ripext files
         working-directory: extension
-        shell: bash
         run: |
           mkdir build
           cd build
           perl ../curl/lib/mk-ca-bundle.pl
           python ../configure.py --enable-optimize --sm-path="${{ github.workspace }}/sourcemod-${{ matrix.sm_version }}" --mms-path="${{ github.workspace }}/metamod-${{ matrix.mm_version }} --targets=${{ matrix.target-archs }}"
           ambuild
+          
       - name: Uploading package
         uses: actions/upload-artifact@v2
         with:
