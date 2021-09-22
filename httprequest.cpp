@@ -27,6 +27,7 @@
 HTTPRequest::HTTPRequest(const std::string &url)
 	: url(url)
 {
+	printf("GoUrl: %s", url);
 	SetHeader("Accept", "application/json");
 	SetHeader("Content-Type", "application/json");
 }
