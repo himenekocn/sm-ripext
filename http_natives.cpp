@@ -974,7 +974,9 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 			return BAD_HANDLE;
 		}
 	}
-
+	
+	smutils->LogMessage(myself, "[RIP] DATA: %s ", response->hndlData);
+	
 	return response->hndlData;
 }
 
