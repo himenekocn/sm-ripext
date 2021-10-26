@@ -27,7 +27,8 @@
 HTTPRequest::HTTPRequest(const std::string &url)
 	: url(url)
 {
-	printf("\n[RIP] GoUrl: %s \n", url);
+	//intf("\n[RIP] GoUrl: %s \n", url);
+	smutils->LogMessage(myself, "[RIP] GoUrl: %s ", url);
 	SetHeader("Accept", "application/json");
 	SetHeader("Content-Type", "application/json");
 }
@@ -145,7 +146,8 @@ struct curl_slist *HTTPRequest::BuildHeaders()
 
 void HTTPRequest::SetHeader(const char *name, const char *value)
 {
-	printf("\n[RIP] SetHeader: %s value: %s\n", name, value);
+	//intf("\n[RIP] SetHeader: %s value: %s\n", name, value);
+	smutils->LogMessage(myself, "[RIP] SetHeader: %s value: %s", name, value);
 	std::string vstr(value);
 	headers.replace(name, std::move(vstr));
 }
