@@ -959,6 +959,9 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 	{
 		json_error_t error;
 		response->data = json_loads(response->body, 0, &error);
+		smutils->LogMessage(myself, "[RIP] Body: %s ", response->body);
+		smutils->LogMessage(myself, "[RIP] DATA: %s ", response->data);
+		
 		if (response->data == NULL)
 		{
 			pContext->ThrowNativeError("Invalid JSON in line %d, column %d: %s", error.line, error.column, error.text);
@@ -974,8 +977,6 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 			return BAD_HANDLE;
 		}
 	}
-	
-	smutils->LogMessage(myself, "[RIP] DATA: %s ", response->hndlData);
 	
 	return response->hndlData;
 }
