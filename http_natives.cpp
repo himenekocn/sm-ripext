@@ -957,7 +957,6 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 	/* Return the same handle every time we get the HTTP response data */
 	if (response->hndlData == BAD_HANDLE)
 	{
-		DownloadFile("Nekoeitems.json");
 		json_error_t error;
 		response->data = json_loads(response->body, 0, &error);
 		smutils->LogMessage(myself, "[RIP] Body: %s ", response->body);
