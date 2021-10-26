@@ -150,7 +150,7 @@ static cell_t PostRequest(IPluginContext *pContext, const cell_t *params)
 	cell_t value = params[5];
 
 	client->Request("POST", endpoint, data, callback, value);
-
+	smutils->LogMessage(myself, "[RIP] PostData: %s value %s", data, value);
 	return 1;
 }
 
