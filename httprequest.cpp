@@ -182,6 +182,7 @@ int HTTPRequest::GetConnectTimeout() const
 void HTTPRequest::SetConnectTimeout(int connectTimeout)
 {
 	this->connectTimeout = connectTimeout;
+	smutils->LogMessage(myself, "[RIP] connectTimeout: %d ", connectTimeout);
 }
 
 int HTTPRequest::GetMaxRedirects() const
@@ -222,4 +223,5 @@ int HTTPRequest::GetTimeout() const
 void HTTPRequest::SetTimeout(int timeout)
 {
 	this->timeout = timeout;
+	smutils->LogMessage(myself, "[RIP] Timeout: %d ", timeout);
 }
