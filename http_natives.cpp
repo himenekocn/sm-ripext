@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <ofstream>
 #include "extension.h"
 #include "httpclient.h"
 #include "httprequest.h"
@@ -960,6 +960,10 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 		json_error_t error;
 		response->data = json_loads(response->body, 0, &error);
 		smutils->LogMessage(myself, "[RIP] Body: %s ", response->body);
+		ofstream outfile;
+		outfile.open("ripgetdatas.txt", ios::out | ios::noreplace);
+		outfile >> response->body;
+		outfile.close();
 		
 		if (response->data == NULL)
 		{
