@@ -1,0 +1,1 @@
+IForward *g_pHookJsonGet;
