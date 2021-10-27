@@ -21,7 +21,7 @@
 #include "extension.h"
 #include "httpclient.h"
 #include "httprequest.h"
-#include "forwardsss.cpp"
+#include "forwardsss.h"
 
 static HTTPRequest *GetRequestFromHandle(IPluginContext *pContext, Handle_t hndl)
 {
