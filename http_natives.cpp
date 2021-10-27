@@ -22,6 +22,8 @@
 #include "httpclient.h"
 #include "httprequest.h"
 
+IForward *g_pHookJsonGet;
+
 static HTTPRequest *GetRequestFromHandle(IPluginContext *pContext, Handle_t hndl)
 {
 	HandleError err;
