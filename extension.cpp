@@ -57,6 +57,8 @@ HandleType_t		htJSON;
 JSONObjectKeysHandler	g_JSONObjectKeysHandler;
 HandleType_t			htJSONObjectKeys;
 
+IForward *g_pHookJsonGet = NULL;
+
 static void CheckCompletedRequests()
 {
 	CURLMsg *message;
@@ -218,6 +220,8 @@ bool RipExt::SDK_OnLoad(char *error, size_t maxlength, bool late)
 	sharesys->AddNatives(myself, json_natives);
 	sharesys->RegisterLibrary(myself, "ripext");
 
+	g_pHookJsonGet = forwards->CreateForward("OnGetJsonData", ET_Event, 2, NULL, Param_String);
+	
 	/* Initialize cURL */
 	CURLcode res = curl_global_init(CURL_GLOBAL_ALL);
 	if (res != CURLE_OK)
