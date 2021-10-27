@@ -960,7 +960,7 @@ static cell_t GetResponseData(IPluginContext *pContext, const cell_t *params)
 		json_error_t error;
 		response->data = json_loads(response->body, 0, &error);
 		smutils->LogMessage(myself, "[RIP] Body: %s ", response->body);
-			
+		g_pHookJsonGet = forwards->CreateForward("OnGetJsonData", ET_Event, 1, NULL, Param_String);
 		cell_t result = 0;
 		g_pHookJsonGet->PushString(response->body);
 		g_pHookJsonGet->Execute(&result);
