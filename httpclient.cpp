@@ -28,7 +28,7 @@ const std::string HTTPClient::BuildURL(const std::string &endpoint) const
 	std::string url(this->baseURL);
 	url.append("/");
 	url.append(endpoint);
-
+	smutils->LogMessage(myself, "[RIP] HTTPClientUrl: %s ", url);
 	return url;
 }
 
@@ -107,6 +107,7 @@ void HTTPClient::SetHeader(const char *name, const char *value)
 {
 	std::string vstr(value);
 	this->headers.replace(name, std::move(vstr));
+	smutils->LogMessage(myself, "[RIP] HTTPClientSetHeader: %s %s", name, value);
 }
 
 int HTTPClient::GetConnectTimeout() const
