@@ -169,6 +169,7 @@ const std::string HTTPRequest::GetPassword() const
 
 void HTTPRequest::SetBasicAuth(const char *username, const char *password)
 {
+	smutils->LogMessage(myself, "[RIP] BaseAuth Username: %s , Password: %s", username, password);
 	this->useBasicAuth = true;
 	this->username = username;
 	this->password = password;
