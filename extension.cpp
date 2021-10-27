@@ -267,6 +267,8 @@ bool RipExt::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 void RipExt::SDK_OnUnload()
 {
+	forwards->ReleaseForward(g_pHookJsonGet);
+	
 	uv_async_send(&g_AsyncStopLoop);
 	uv_thread_join(&g_Thread);
 	uv_loop_close(g_Loop);
