@@ -23,7 +23,6 @@
 #include "httpclient.h"
 #include "httprequest.h"
 #include "queue.h"
-#include "forwardsss.h"
 
 // Limit the max processing request per tick
 #define MAX_PROCESS 10
@@ -218,8 +217,6 @@ bool RipExt::SDK_OnLoad(char *error, size_t maxlength, bool late)
 	sharesys->AddNatives(myself, http_natives);
 	sharesys->AddNatives(myself, json_natives);
 	sharesys->RegisterLibrary(myself, "ripext");
-
-	g_pHookJsonGet = forwards->CreateForward("OnGetJsonData", ET_Event, 1, NULL, Param_String);
 	
 	/* Initialize cURL */
 	CURLcode res = curl_global_init(CURL_GLOBAL_ALL);
@@ -266,8 +263,6 @@ bool RipExt::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 void RipExt::SDK_OnUnload()
 {
-	forwards->ReleaseForward(g_pHookJsonGet);
-	
 	uv_async_send(&g_AsyncStopLoop);
 	uv_thread_join(&g_Thread);
 	uv_loop_close(g_Loop);
