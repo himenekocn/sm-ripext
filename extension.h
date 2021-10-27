@@ -38,6 +38,8 @@ extern uv_loop_t *g_Loop;
 
 typedef StringHashMap<std::string> HTTPHeaderMap;
 
+IForward *g_pHookJsonGet = NULL;
+
 class IHTTPContext
 {
 public:
