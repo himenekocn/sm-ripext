@@ -27,7 +27,6 @@
 HTTPRequest::HTTPRequest(const std::string &url)
 	: url(url)
 {
-	//intf("\n[RIP] GoUrl: %s \n", url);
 	smutils->LogMessage(myself, "[RIP] GoUrl: %s ", url);
 	SetHeader("Accept", "application/json");
 	SetHeader("Content-Type", "application/json");
@@ -84,6 +83,7 @@ const std::string HTTPRequest::BuildURL() const
 
 void HTTPRequest::AppendQueryParam(const char *name, const char *value)
 {
+	smutils->LogMessage(myself, "[RIP] AppendQueryParam: %s %s", name, value);
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -108,6 +108,7 @@ void HTTPRequest::AppendQueryParam(const char *name, const char *value)
 
 void HTTPRequest::AppendFormParam(const char *name, const char *value)
 {
+	smutils->LogMessage(myself, "[RIP] AppendFormParam: %s %s", name, value);
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -194,6 +195,7 @@ int HTTPRequest::GetMaxRedirects() const
 void HTTPRequest::SetMaxRedirects(int maxRedirects)
 {
 	this->maxRedirects = maxRedirects;
+	smutils->LogMessage(myself, "[RIP] SetMaxRedirects: %d", maxRedirects);
 }
 
 int HTTPRequest::GetMaxRecvSpeed() const
@@ -204,6 +206,7 @@ int HTTPRequest::GetMaxRecvSpeed() const
 void HTTPRequest::SetMaxRecvSpeed(int maxSpeed)
 {
 	this->maxRecvSpeed = maxSpeed;
+	smutils->LogMessage(myself, "[RIP] SetMaxRecvSpeed: %d", maxSpeed);
 }
 
 int HTTPRequest::GetMaxSendSpeed() const
@@ -214,6 +217,7 @@ int HTTPRequest::GetMaxSendSpeed() const
 void HTTPRequest::SetMaxSendSpeed(int maxSpeed)
 {
 	this->maxSendSpeed = maxSpeed;
+	smutils->LogMessage(myself, "[RIP] SetMaxSendSpeed: %d", maxSpeed);
 }
 
 int HTTPRequest::GetTimeout() const
