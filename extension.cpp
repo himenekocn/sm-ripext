@@ -57,8 +57,6 @@ HandleType_t		htJSON;
 JSONObjectKeysHandler	g_JSONObjectKeysHandler;
 HandleType_t			htJSONObjectKeys;
 
-IForward *g_pHookJsonGet = NULL;
-
 static void CheckCompletedRequests()
 {
 	CURLMsg *message;
