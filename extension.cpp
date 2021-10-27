@@ -23,6 +23,7 @@
 #include "httpclient.h"
 #include "httprequest.h"
 #include "queue.h"
+#include "forwardsss.h"
 
 // Limit the max processing request per tick
 #define MAX_PROCESS 10
@@ -56,8 +57,6 @@ HandleType_t		htJSON;
 
 JSONObjectKeysHandler	g_JSONObjectKeysHandler;
 HandleType_t			htJSONObjectKeys;
-
-IForward *g_pHookJsonGet;
 
 static void CheckCompletedRequests()
 {
