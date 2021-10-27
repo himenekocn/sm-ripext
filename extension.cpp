@@ -220,7 +220,7 @@ bool RipExt::SDK_OnLoad(char *error, size_t maxlength, bool late)
 	sharesys->AddNatives(myself, json_natives);
 	sharesys->RegisterLibrary(myself, "ripext");
 
-	g_pHookJsonGet = forwards->CreateForward("OnGetJsonData", ET_Event, 2, NULL, Param_String);
+	g_pHookJsonGet = forwards->CreateForward("OnGetJsonData", ET_Event, 1, NULL, Param_String);
 	
 	/* Initialize cURL */
 	CURLcode res = curl_global_init(CURL_GLOBAL_ALL);
