@@ -21,6 +21,7 @@
 #include "extension.h"
 #include "httpclient.h"
 #include "httprequest.h"
+#include "extension.cpp"
 
 static HTTPRequest *GetRequestFromHandle(IPluginContext *pContext, Handle_t hndl)
 {
