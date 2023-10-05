@@ -27,7 +27,6 @@
 HTTPRequest::HTTPRequest(const std::string &url)
 	: url(url)
 {
-	smutils->LogMessage(myself, "[RIP] GoUrl: %s ", url);
 	SetHeader("Accept", "application/json");
 	SetHeader("Content-Type", "application/json");
 }
@@ -83,7 +82,7 @@ const std::string HTTPRequest::BuildURL() const
 
 void HTTPRequest::AppendQueryParam(const char *name, const char *value)
 {
-	smutils->LogMessage(myself, "[RIP] AppendQueryParam: %s %s", name, value);
+	//smutils->LogMessage(myself, "[RIP] AppendQueryParam: %s %s", name, value);
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -108,7 +107,7 @@ void HTTPRequest::AppendQueryParam(const char *name, const char *value)
 
 void HTTPRequest::AppendFormParam(const char *name, const char *value)
 {
-	smutils->LogMessage(myself, "[RIP] AppendFormParam: %s %s", name, value);
+	//smutils->LogMessage(myself, "[RIP] AppendFormParam: %s %s", name, value);
 	CURL *curl = curl_easy_init();
 	if (curl == NULL)
 	{
@@ -148,7 +147,7 @@ struct curl_slist *HTTPRequest::BuildHeaders()
 void HTTPRequest::SetHeader(const char *name, const char *value)
 {
 	//intf("\n[RIP] SetHeader: %s value: %s\n", name, value);
-	smutils->LogMessage(myself, "[RIP] SetHeader: %s value: %s", name, value);
+	//smutils->LogMessage(myself, "[RIP] SetHeader: %s value: %s", name, value);
 	std::string vstr(value);
 	headers.replace(name, std::move(vstr));
 }
@@ -170,7 +169,7 @@ const std::string HTTPRequest::GetPassword() const
 
 void HTTPRequest::SetBasicAuth(const char *username, const char *password)
 {
-	smutils->LogMessage(myself, "[RIP] BaseAuth Username: %s , Password: %s", username, password);
+	//smutils->LogMessage(myself, "[RIP] BaseAuth Username: %s , Password: %s", username, password);
 	this->useBasicAuth = true;
 	this->username = username;
 	this->password = password;
@@ -184,7 +183,7 @@ int HTTPRequest::GetConnectTimeout() const
 void HTTPRequest::SetConnectTimeout(int connectTimeout)
 {
 	this->connectTimeout = connectTimeout;
-	smutils->LogMessage(myself, "[RIP] connectTimeout: %d ", connectTimeout);
+	//smutils->LogMessage(myself, "[RIP] connectTimeout: %d ", connectTimeout);
 }
 
 int HTTPRequest::GetMaxRedirects() const
@@ -195,7 +194,7 @@ int HTTPRequest::GetMaxRedirects() const
 void HTTPRequest::SetMaxRedirects(int maxRedirects)
 {
 	this->maxRedirects = maxRedirects;
-	smutils->LogMessage(myself, "[RIP] SetMaxRedirects: %d", maxRedirects);
+	//smutils->LogMessage(myself, "[RIP] SetMaxRedirects: %d", maxRedirects);
 }
 
 int HTTPRequest::GetMaxRecvSpeed() const
@@ -206,7 +205,7 @@ int HTTPRequest::GetMaxRecvSpeed() const
 void HTTPRequest::SetMaxRecvSpeed(int maxSpeed)
 {
 	this->maxRecvSpeed = maxSpeed;
-	smutils->LogMessage(myself, "[RIP] SetMaxRecvSpeed: %d", maxSpeed);
+	//smutils->LogMessage(myself, "[RIP] SetMaxRecvSpeed: %d", maxSpeed);
 }
 
 int HTTPRequest::GetMaxSendSpeed() const
@@ -217,7 +216,7 @@ int HTTPRequest::GetMaxSendSpeed() const
 void HTTPRequest::SetMaxSendSpeed(int maxSpeed)
 {
 	this->maxSendSpeed = maxSpeed;
-	smutils->LogMessage(myself, "[RIP] SetMaxSendSpeed: %d", maxSpeed);
+	//smutils->LogMessage(myself, "[RIP] SetMaxSendSpeed: %d", maxSpeed);
 }
 
 int HTTPRequest::GetTimeout() const
@@ -228,5 +227,5 @@ int HTTPRequest::GetTimeout() const
 void HTTPRequest::SetTimeout(int timeout)
 {
 	this->timeout = timeout;
-	smutils->LogMessage(myself, "[RIP] Timeout: %d ", timeout);
+	//smutils->LogMessage(myself, "[RIP] Timeout: %d ", timeout);
 }
