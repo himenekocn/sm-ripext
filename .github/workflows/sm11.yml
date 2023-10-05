@@ -1,4 +1,4 @@
-name: SourceMod1.11-MetaMod1.12
+name: SourceMod1.12-MetaMod1.12
 
 on: [workflow_dispatch]
 
@@ -14,7 +14,7 @@ jobs:
           - windows-latest
 
         sm_version:
-          - "1.11"
+          - "1.12"
 
         mm_version:
           - "1.12"
@@ -23,7 +23,7 @@ jobs:
           - mm_version: "1.12"
             mm_branch: "master"
 
-          - sm_version: "1.11"
+          - sm_version: "1.12"
             sm_branch: "master"
 
           - os: ubuntu-latest
