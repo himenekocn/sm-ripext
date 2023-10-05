@@ -2,7 +2,7 @@
  * vim: set ts=4 :
  * =============================================================================
  * SourceMod REST in Pawn Extension
- * Copyright 2017-2020 Erik Minekus
+ * Copyright 2017-2022 Erik Minekus
  * =============================================================================
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -57,5 +57,7 @@ private:
 	const std::string username;
 	const std::string password;
 };
+
+off_t FileSize(FILE *fd);
 
 #endif // SM_RIPEXT_HTTPFILECONTEXT_H_

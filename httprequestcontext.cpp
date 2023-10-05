@@ -2,7 +2,7 @@
  * vim: set ts=4 :
  * =============================================================================
  * SourceMod REST in Pawn Extension
- * Copyright 2017-2020 Erik Minekus
+ * Copyright 2017-2022 Erik Minekus
  * =============================================================================
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -116,15 +116,18 @@ bool HTTPRequestContext::InitCurl()
 	if (method.compare("POST") == 0)
 	{
 		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) size);
 	}
 	else if (method.compare("PUT") == 0)
 	{
 		curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+		curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, (curl_off_t) size);
 	}
 	else if (method.compare("PATCH") == 0)
 	{
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
 		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) size);
 	}
 	else if (method.compare("DELETE") == 0)
 	{
@@ -165,6 +168,10 @@ bool HTTPRequestContext::InitCurl()
 		curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());
 	}
 
+#ifdef DEBUG
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+#endif
+
 	return true;
 }
 
@@ -178,11 +185,12 @@ void HTTPRequestContext::OnCompleted()
 
 	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response.status);
 
+	HandleError err;
 	HandleSecurity sec(NULL, myself->GetIdentity());
-	Handle_t hndlResponse = handlesys->CreateHandleEx(htHTTPResponse, &response, &sec, NULL, NULL);
+	Handle_t hndlResponse = handlesys->CreateHandleEx(htHTTPResponse, &response, &sec, NULL, &err);
 	if (hndlResponse == BAD_HANDLE)
 	{
-		smutils->LogError(myself, "Could not create HTTP response handle.");
+		smutils->LogError(myself, "Could not create HTTP response handle (error %d)", err);
 		return;
 	}
 
