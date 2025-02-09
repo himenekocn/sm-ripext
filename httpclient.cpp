@@ -28,7 +28,7 @@ const std::string HTTPClient::BuildURL(const std::string &endpoint) const
 	std::string url(this->baseURL);
 	url.append("/");
 	url.append(endpoint);
-	smutils->LogMessage(myself, "[RIP] HTTPClientUrl: %s ", url);
+	smutils->LogMessage(myself, "[RIP] HTTPClientUrl: %s ", url.c_str());
 	return url;
 }
 
